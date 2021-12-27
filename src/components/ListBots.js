@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import {Link} from 'react-router-dom'
 import {format} from 'timeago.js'
 import '../styles/listBots.css';
 import SideBar from './SideBar.js'
 import {db} from '../firebase'
+import { AuthContext } from "./Auth.js";
 
 export function useListBots(){
     const [Bots, setBots] = useState([])
+    const { currentUser } = useContext(AuthContext);
     async function listOfBots() {
-        db.collection('bot').onSnapshot((query) => {
+        db.collection('bot').where('author','==',currentUser.email).onSnapshot((query) => {
             const list = [];
             query.forEach(document => {
                 list.push({...document.data(), Id:document.id})

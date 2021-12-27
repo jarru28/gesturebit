@@ -1,7 +1,8 @@
-import React, { useEffect,useState} from 'react'
+import React, { useEffect,useState,useContext} from 'react'
 import '../styles/createEx.css';
 import SideBar from './SideBar.js'
 import {db} from '../firebase'
+import { AuthContext } from "./Auth.js";
 
 export function funExchange (ex){
     if(ex==='binance')
@@ -14,9 +15,10 @@ export function funExchange (ex){
 
 export function useListExchanges(){
     const [Exchanges, setExchanges] = useState([])
+    const { currentUser } = useContext(AuthContext);
     
     async function listOfEx() {
-        db.collection('exchange').where('author', '==', 'javier').onSnapshot((query) => {
+        db.collection('exchange').where('author', '==', currentUser.email).onSnapshot((query) => {
             const list = [];
             query.forEach(document => {
                 list.push({...document.data(), Id:document.id})
@@ -31,11 +33,12 @@ export function useListExchanges(){
     return [Exchanges, setExchanges];
 }
 export default function CreateEx() {
+    const { currentUser } = useContext(AuthContext);
     const [Exchanges] = useListExchanges()
     const [Pairs, setPairs] = useState([])
     const [Account, setAccount] = useState({
             name:'',
-            author:'javier',
+            author:currentUser.email,
             apiName:'',
             apiKey:'',
             url:''
@@ -68,7 +71,7 @@ export default function CreateEx() {
         await db.collection('exchange').doc().set(newExchange);
         setAccount({
             name:'',
-            author:'javier',
+            author:currentUser.email,
             apiName:'',
             apiKey:'',
             url:''
@@ -81,13 +84,7 @@ export default function CreateEx() {
 
     const deleteEx = async(id) =>{
         await db.collection('exchange').doc(id).delete();
-        setAccount({
-            name:'',
-            author:'javier',
-            apiName:'',
-            apiKey:'',
-            url:''
-    })
+        
     }
     return (
         <div className="container-fluid " >

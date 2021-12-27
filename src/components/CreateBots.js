@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState,useContext} from 'react'
 import SideBar from './SideBar.js'
 import logo1 from '../images/rsi.png'
 import '../styles/createBot.css';
@@ -7,16 +7,18 @@ import {useListBots} from './ListBots'
 import {useListStrategies} from './ListStrategies'
 import {useListExchanges} from './CreateEx'
 import {db} from '../firebase'
+import { AuthContext} from "./Auth.js";
 
 export default function CreateBot() {
     const [Exchange] = useListExchanges()
     const [Strategies] = useListStrategies()
     const [Pairs, setPairs] = useState([])
     const [Bots] = useListBots()
-    let author = "javier"
+    const { currentUser } = useContext(AuthContext);
+    
     const [Bot, setBot] = useState({
             name:'',
-            author:author,
+            author:currentUser.email,
             strategy:'',
             money:'',
             exchanche:'',
