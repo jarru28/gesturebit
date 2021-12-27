@@ -1,0 +1,91 @@
+#body{
+    background-color: rgb(236, 255, 230);
+}
+#titleAdd{
+    margin-top: 4%;
+    font-size:x-large;
+    border-bottom: 3px solid rgb(65, 180, 49);
+    color: rgb(65, 180, 49);
+}
+#subTitle{
+    margin-bottom: 4%;
+    color: rgb(243, 255, 241);
+}
+#titleCard{
+    background-color: rgb(81, 153, 70);
+    color: rgb(244, 255, 240);
+    font-size: large;
+    border-radius: 4px;
+    padding: 3px 20px;
+    margin-bottom: 10px;
+}
+#cardEx{
+    background-color: rgb(93, 204, 79);
+    margin-top: 4%;
+    margin-bottom: 4%;
+    padding: 20px 30px 20px 30px;
+    border-style: none;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.151);
+
+}
+#imagYour{
+    height: 55px;
+    width: 55px;
+    border: 3px solid rgb(73, 172, 64);
+    border-radius: 40px;
+    padding: 4px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.24);
+}
+#imagChoose{
+    height: 55px;
+    width: 55px;
+    border-radius: 40px;
+    padding: 4px;
+}
+#imag{
+    height: 55px;
+    width: 55px;
+    border: 3px solid rgb(239, 255, 238);
+    border-radius: 40px;
+    padding: 4px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.24);
+}
+#rowEx{
+    background-color: rgb(238, 255, 235);
+    border-radius: 6px;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.185);
+
+}
+#buttonSave{
+    background-color: rgb(247, 255, 246);
+    color: rgb(70, 168, 57);
+    border-style: none;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.301);
+    margin-top: 3%;
+    font-size:medium;
+}
+#in{
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.171);
+}
+#lab{
+    color: rgb(245, 255, 240);
+}
+
+.card-input-e {
+    display: none;
+}
+
+.card-i:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.267);
+    border-radius: 50%;
+}
+
+.card-input-e:checked + .card-i {
+    box-shadow: 0 0 15px 6px rgba(11, 51, 11, 0.747);
+     border-radius: 50%;
+     
+ }
+ #in:hover{
+    box-shadow: 0px 0px 8px 10px rgba(68, 68, 68, 0.301);
+}
