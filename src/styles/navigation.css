@@ -12,8 +12,17 @@
     margin-left: 10%;
 }
 #buttonOut{
-    background-color: rgb(148, 148, 148);
-    color:rgb(255, 255, 255);
+    background-color: rgb(194, 194, 194);
+    color:rgb(46, 68, 36);
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.219);
 
+}
+#buttonOut:hover{
+    background-color: rgb(240, 240, 240);
+    color:rgb(46, 68, 36);
+    box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.315);
+
+}
+#sideBar{
+    background-color: rgb(46, 68, 36);
 }

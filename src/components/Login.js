@@ -39,7 +39,7 @@ const Login = ({ history }) => {
               <label className="form-label " id="labelLogin">
               <i class="bi bi-envelope-fill"></i> Email
                 </label>
-                <input name="email" className="form-control "  type="email" id="input"/>
+                <input name="email" className="form-control "  type="email" id="input" placeholder="Write your email"/>
               
             </div>
 
@@ -47,7 +47,7 @@ const Login = ({ history }) => {
               <label className="form-label" id="labelLogin">
               <i class="bi bi-lock-fill"></i> Password
               </label>
-                <input name="password" className="form-control " type="password" id="input" />
+                <input name="password" className="form-control " type="password" id="input" placeholder="Write your password"/>
               
             </div>
             <div className="text-center">

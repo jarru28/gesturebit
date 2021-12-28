@@ -88,7 +88,7 @@ export default function CreateBot() {
                         <div className="row justify-content-center justify-content-md-start ml-md-5">
                             <div id="titleCreate">CREATE NEW BOT</div>
                         </div>
-                        <div className="row justify-content-center justify-content-md-around " id="create">
+                        <div className="row justify-content-center justify-content-md-around py-3 px-5" id="create">
                             <div className="col-11 col-md-5 col-xl-6" id="column">
                                 <div className="" >
                                         <label className="form-label" id="titleLabel">Bot Name</label>
@@ -102,8 +102,14 @@ export default function CreateBot() {
                                 </div>
                                     <p className="row justify-content-center m-0">
                                     </p>
-                                <div className="row justify-content-around pt-2 pb-5 py-4">
-                                        {Exchange.map(exchanche => 
+                                <div className="row justify-content-around pt-2 py-4">
+                                        {
+                                        [Exchange]=='' ? 
+                                        <div className=" p-2 text-center fs-5 text-white">
+                                            <i class="bi bi-wrench mx-1"></i> You don't have any Exchange.
+                                        </div> 
+                                        :
+                                        Exchange.map(exchanche => 
                                                     <div id="imagChoose" key={exchanche.Id}>
                                                         <label >
                                                             <input type="radio" name="exchanche" value={exchanche.name} className="card-input-e" onChange={onInput}/>
@@ -131,7 +137,7 @@ export default function CreateBot() {
                                             <input type="number" className="form-control" name="money" aria-describedby="basic-addon2" required onChange={onInput} id="input"></input>
                                             <span className="input-group-text" id="basic-addon2">$</span>
                                         </div>
-                                        <p className="text-center m-1">
+                                        <p className="text-center m-1 text-white">
                                             Make sure you have this quantity on your wallet
                                         </p>
                                     </div>
@@ -162,10 +168,10 @@ export default function CreateBot() {
                                 
                             </div>
                             </div>
-                            <div className="row justify-content-center py-4 pr-md-5">
+                            <div className="row justify-content-center py-2 ">
                                 <div className=" text-center">
                                     <form onSubmit={onSubmit}>
-                                            <button type="submit" className="btn" id="buttonCreate"> Create Bot</button>
+                                            <button type="submit" className="btn px-5" id="buttonCreate"> Create Bot</button>
                                     </form>
                                 </div>
                             </div>

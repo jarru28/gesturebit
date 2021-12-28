@@ -27,6 +27,7 @@ export function useListBots(){
 }
 export default function ListBots(){
     const [Bots] = useListBots()
+    console.log(Bots)
 
     async function activateBot(id){
         console.log(id)
@@ -53,14 +54,20 @@ export default function ListBots(){
                     <div className="row justify-content-center justify-content-md-start ml-md-5 ">
                         <div id="tit">YOUR BOTS</div>
                     </div>
+                    
                     <div className="row justify-content-center">
-                    {Bots.map(bot => 
+                    { [Bots]=='' ? 
+                    <div className="col-11 col-md-8 col-xl-8 mt-5 p-4 text-center fs-5" id='caja_bot'>
+                        <i class="bi bi-wrench mx-1"></i> You don't have any Bot.
+                    </div> 
+                    :
+                    Bots.map(bot => 
                         <div className="col-11 col-md-8 col-xl-8" key={bot.Id}>
                                 <div className="row" id="nameBot">
                                     {bot.name}
                                 </div>
                             <div className="row " id="caja_bot">
-                                <div className="col-2">
+                                <div className="col-11 col-md-5 col-xl-2">
                                     <img src={bot.url} alt="binance" id="imag"/>    
                                 </div>
                                 <div className="col-2">
@@ -80,8 +87,9 @@ export default function ListBots(){
                                 </button>
                             </div>
                         </div>
-                        )}
+                        ) }
                     </div>
+                
                 </div>
             </div>
         </div>

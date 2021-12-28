@@ -1,6 +1,5 @@
 import React, { useContext} from 'react'
 import {Link} from 'react-router-dom'
-import '../styles/sideBar.css'
 import {app} from '../firebase.js'
 import '../styles/navigation.css'
 import { AuthContext } from "./Auth.js";

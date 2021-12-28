@@ -102,7 +102,14 @@ export default function CreateEx() {
                                     </div>
                                     
                                     <div className="" id="titleCard">
-                                        {Exchanges.map(ex => 
+                                    
+                                        {
+                                        [Exchanges]=='' ? 
+                                        <div className=" p-3 text-center fs-5">
+                                            <i class="bi bi-wrench mx-1"></i> You don't have any Exchange.
+                                        </div> 
+                                        :
+                                        Exchanges.map(ex => 
                                             <div id="rowEx" className="row p-3 m-3" key={ex.Id}>
                                                 <div >
                                                     <img src={ex.url} alt="binance" id="imagYour"/> 

@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
+import React, { useContext} from 'react'
 import {Link} from 'react-router-dom'
 import '../styles/navigation.css'
 import logo from '../images/GESTUREBIT.png'
+import { AuthContext } from "./Auth.js";
+    
 
-export default class Navigation extends Component {
-    render() {
-        return (
-            <nav className="navbar navbar-expand-lg navbar-dark" id="nav">
+export default function Navigation() {
+    const { currentUser } = useContext(AuthContext);
+
+        return (<div>
+            {  !currentUser &&
+                <nav className="navbar navbar-expand-lg navbar-dark" id="nav">
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="/">
                         <img src={logo}  alt="logo" width="120" height="120" id="gesturebit"/>
@@ -17,21 +21,17 @@ export default class Navigation extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                            <Link className="navbar-brand" to="/bots"></Link>
+                            <Link className="navbar-brand btn" to="/login"></Link>
                             </li>
                             <li className="nav-item">
-                            <Link className="navbar-brand" to="/createBot"></Link>
-                            </li>
-                            <li className="nav-item">
-                            <Link className="navbar-brand" to="/strategies"></Link>
-                            </li>
-                            <li className="nav-item">
-                            <Link className="navbar-brand" to="/createExchange"></Link>
+                            <Link className="navbar-brand" to="/singup"></Link>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </nav>    
+            </nav>
+            }  
+            </div> 
         )
     }
-}
+
