@@ -26,3 +26,19 @@
 #sideBar{
     background-color: rgb(46, 68, 36);
 }
+#butLogin{
+    
+    color: rgb(114, 212, 100);
+    border: 2px solid rgb(114, 212, 100);
+    
+    border-radius: 4px;
+    font-size:large;
+}
+#butSingup{
+    background-color: rgb(114, 212, 100);
+    color: rgb(244, 255, 242);
+    border-radius: 4px;
+    border-style: none;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.082);
+    font-size:large;
+}

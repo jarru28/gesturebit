@@ -20,12 +20,14 @@ export default function Navigation() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto">
+
                             <li className="nav-item">
-                            <Link className="navbar-brand btn" to="/login"></Link>
+                            <Link className="navbar-brand mx-4 px-5" to="/login" id='butLogin'>Login</Link>
                             </li>
                             <li className="nav-item">
-                            <Link className="navbar-brand" to="/singup"></Link>
+                            <Link className="navbar-brand px-5" to="/singup" id="butSingup">Sing Up</Link>
                             </li>
+                            
                         </ul>
                     </div>
                 </div>
