@@ -96,7 +96,7 @@ export default function CreateBot() {
                                         </input>
                                 </div>
                                 <div className="row justify-content-center" >
-                                <div className="">
+                                <div className="text-center">
                                 <label className="form-label" id="titleLabel">Exchange</label>
                                 </div>
                                 </div>
@@ -139,7 +139,7 @@ export default function CreateBot() {
                             </div>
                             <div className="col-11 col-md-5 col-xl-6" id="column">
                                 <div className="row justify-content-around mx-2 mb-4">
-                                    <p className="" id="titleLabel">Choose the strategy
+                                    <p className="text-center" id="titleLabel">Choose the strategy
                                     </p>
                                 </div>
                                 <div className="row justify-content-around ">

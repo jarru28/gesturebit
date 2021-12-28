@@ -3,6 +3,7 @@ import { withRouter, Redirect } from "react-router";
 import { Link} from "react-router-dom";
 import {app} from "../firebase.js";
 import { AuthContext } from "./Auth.js";
+import '../styles/Login.css';
 
 const Login = ({ history }) => {
   const handleLogin = useCallback(
@@ -28,20 +29,36 @@ const Login = ({ history }) => {
   }
 
   return (
-    <div>
-        <h2>LOGIN</h2>
-      <form onSubmit={handleLogin}>
-        <label>
-          Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Log in</button>
-      </form>
-      Don't you have an account?<Link className="" to="/singup"> SingUp </Link>
+    <div className="container-fluid vh-100" id='bodyLogin'>
+      <div className="row d-flex justify-content-center align-items-center ">
+        <div className="col-11 col-md-7 col-lg-5 col-xl-4 " id='cardLogin'>
+          <h2 className="text-center mb-5" id="titleLogin">Login</h2>
+          <form onSubmit={handleLogin}>
+
+            <div className="form-outline form-white mb-4 ">
+              <label className="form-label " id="labelLogin">
+              <i class="bi bi-envelope-fill"></i> Email
+                </label>
+                <input name="email" className="form-control "  type="email" id="input"/>
+              
+            </div>
+
+            <div className="form-outline form-white mb-4">
+              <label className="form-label" id="labelLogin">
+              <i class="bi bi-lock-fill"></i> Password
+              </label>
+                <input name="password" className="form-control " type="password" id="input" />
+              
+            </div>
+            <div className="text-center">
+            <button className="btn px-5 mt-3" id="buttonLogin" type="submit">Log in</button>
+            </div>
+          </form>
+          <hr></hr>
+          <div className="text-center">Don't you have an account?<Link className="" to="/singup"> SingUp </Link></div>
+          
+        </div>
+      </div>
     </div>
   );
 };

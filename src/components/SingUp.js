@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import { Redirect} from "react-router-dom";
 import {app} from "../firebase";
 import { AuthContext } from "./Auth.js";
+import '../styles/Login.css';
 
 const SignUp = ({ history }) => {
   const handleSignUp = useCallback(async event => {
@@ -25,19 +26,34 @@ const SignUp = ({ history }) => {
   }
 
   return (
-    <div>
-      <h2>SING UP</h2>
-      <form onSubmit={handleSignUp}>
-        <label>
-          Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Sign Up</button>
-      </form>
+    <div className="container-fluid vh-100" id='bodyLogin'>
+      <div className="row d-flex justify-content-center align-items-center ">
+        <div className="col-11 col-md-7 col-lg-5 col-xl-4 " id='cardLogin'>
+          <h2 className="text-center mb-5" id="titleLogin">Sing up</h2>
+          <form onSubmit={handleSignUp}>
+
+            <div className="form-outline form-white mb-4 ">
+              <label className="form-label " id="labelLogin">
+              <i class="bi bi-envelope-fill"></i> Email
+                </label>
+                <input name="email" className="form-control "  type="email" id="input"/>
+              
+            </div>
+
+            <div className="form-outline form-white mb-4">
+              <label className="form-label" id="labelLogin">
+              <i class="bi bi-lock-fill"></i> Password
+              </label>
+                <input name="password" className="form-control " type="password" id="input" />
+              
+            </div>
+            <div className="text-center">
+            <button className="btn px-5 mt-3" id="buttonLogin" type="submit">Sing up</button>
+            </div>
+          </form>
+          
+        </div>
+      </div>
     </div>
   );
 };
