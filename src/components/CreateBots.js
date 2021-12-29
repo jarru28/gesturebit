@@ -1,7 +1,10 @@
 import React, { useEffect, useState,useContext} from 'react'
-import SideBar from './SideBar.js'
+import { useForm } from "react-hook-form";
+
 import logo1 from '../images/rsi.png'
 import '../styles/createBot.css';
+
+import SideBar from './SideBar.js'
 import {funExchange} from './CreateEx'
 import {useListBots} from './ListBots'
 import {useListStrategies} from './ListStrategies'
@@ -12,9 +15,11 @@ import { AuthContext} from "./Auth.js";
 export default function CreateBot() {
     const [Exchange] = useListExchanges()
     const [Strategies] = useListStrategies()
-    const [Pairs, setPairs] = useState([])
+    const [Pairs, setPairs] = useState(['Choose a exchange'])
     const [Bots] = useListBots()
+    
     const { currentUser } = useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors } } = useForm();
     
     const [Bot, setBot] = useState({
             name:'',
@@ -40,11 +45,12 @@ export default function CreateBot() {
                 query.forEach(document => {
                     list.push({...document.data(), Id:document.id})
                 })
-                setPairs(list[0].pair);
+                const l = ['Pair'];l.push(...list[0].pair);
+                setPairs(l);
                 }) 
         }
     }   
-    console.log(Bot.exchanche)
+    
     function BotRepeat(name){
         var res = false
         Bots.map(bot => {
@@ -54,7 +60,8 @@ export default function CreateBot() {
     }
     const onInput=(e)=>{
         setBot({...Bot,[e.target.name]: e.target.value})
-        console.log(Bot)
+        console.log(Pairs[0])
+        
     }
     
     const onSubmit= async (e)=>{
@@ -106,7 +113,7 @@ export default function CreateBot() {
                                         {
                                         [Exchange]=='' ? 
                                         <div className=" p-2 text-center fs-5 text-white">
-                                            <i class="bi bi-wrench mx-1"></i> You don't have any Exchange.
+                                            <i className="bi bi-wrench mx-1"></i> You don't have any Exchange.
                                         </div> 
                                         :
                                         Exchange.map(exchanche => 

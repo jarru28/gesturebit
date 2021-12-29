@@ -58,7 +58,7 @@ export default function ListBots(){
                     <div className="row justify-content-center">
                     { [Bots]=='' ? 
                     <div className="col-11 col-md-8 col-xl-8 mt-5 p-4 text-center fs-5" id='caja_bot'>
-                        <i class="bi bi-wrench mx-1"></i> You don't have any Bot.
+                        <i className="bi bi-wrench mx-1"></i> You don't have any Bot.
                     </div> 
                     :
                     Bots.map(bot => 
@@ -70,19 +70,19 @@ export default function ListBots(){
                                 <div className="col-11 col-md-5 col-xl-2">
                                     <img src={bot.url} alt="binance" id="imag"/>    
                                 </div>
-                                <div className="col-2">
+                                <div className="col-11 col-md-5 col-xl-2">
                                     {bot.strategy}   
                                 </div>
-                                <div className="col-2">
+                                <div className="col-11 col-md-5 col-xl-2">
                                     {bot.money}$   
                                 </div>
-                                <div className="col-2">
+                                <div className="col-11 col-md-5 col-xl-2">
                                     {bot.pair}   
                                 </div>
-                                <div className="col-2">
+                                <div className="col-11 col-md-5 col-xl-2">
                                     {format(bot.date)}   
                                 </div>
-                                <button className="btn col-2" id="botonEliminar" onClick={()=>deleteBot(bot.Id)}>
+                                <button className="btn col-11 col-md-5 col-xl-2" id="botonEliminar" onClick={()=>deleteBot(bot.Id)}>
                                     Delete
                                 </button>
                             </div>

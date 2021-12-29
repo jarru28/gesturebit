@@ -69,6 +69,7 @@ export default function CreateEx() {
             url:Account.url
         }
         await db.collection('exchange').doc().set(newExchange);
+        document.querySelectorAll('[name=name]').forEach((x) => x.checked = false);
         setAccount({
             name:'',
             author:currentUser.email,
@@ -103,10 +104,9 @@ export default function CreateEx() {
                                     
                                     <div className="" id="titleCard">
                                     
-                                        {
-                                        [Exchanges]=='' ? 
+                                        { [Exchanges]=='' ? 
                                         <div className=" p-3 text-center fs-5">
-                                            <i class="bi bi-wrench mx-1"></i> You don't have any Exchange.
+                                            <i className="bi bi-wrench mx-1"></i> You don't have any Exchange.
                                         </div> 
                                         :
                                         Exchanges.map(ex => 
@@ -135,14 +135,14 @@ export default function CreateEx() {
                                         <div className="row justify-content-center">
                                             <div className="form-group mb-3">
                                                 <label className="form-label" id="lab">ApiName</label>
-                                                <input type="text" className="form-control" id="in" placeholder="Paste your ApiName" name="apiName" required onChange={onInput}>
+                                                <input type="text" className="form-control in" placeholder="Paste your ApiName" name="apiName" value={Account.apiName} required onChange={onInput}>
                                                 </input>
                                             </div>
                                         </div>
                                         <div className="row justify-content-center">
                                             <div className="form-group">
                                                 <label className="form-label" id="lab">ApiKey</label>
-                                                <input type="password" className="form-control" id="in" placeholder="Paste your ApiKey" name="apiKey" required onChange={onInput}>
+                                                <input type="password" className="form-control in" placeholder="Paste your ApiKey" value={Account.apiKey} name="apiKey" required onChange={onInput}>
                                                 </input>
                                             </div>
                                         </div>

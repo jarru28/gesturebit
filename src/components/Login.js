@@ -1,11 +1,16 @@
 import React, { useCallback, useContext } from "react";
 import { withRouter, Redirect } from "react-router";
 import { Link} from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import {app} from "../firebase.js";
 import { AuthContext } from "./Auth.js";
 import '../styles/Login.css';
 
 const Login = ({ history }) => {
+  const { currentUser } = useContext(AuthContext);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
   const handleLogin = useCallback(
     async event => {
       event.preventDefault();
@@ -22,7 +27,7 @@ const Login = ({ history }) => {
     [history]
   );
 
-  const { currentUser } = useContext(AuthContext);
+  
 
   if (currentUser) {
     return <Redirect to="/bots" />;
