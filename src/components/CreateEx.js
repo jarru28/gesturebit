@@ -1,4 +1,7 @@
 import React, { useEffect,useState,useContext} from 'react'
+import { useForm } from "react-hook-form";
+import Swal from 'sweetalert2'
+
 import '../styles/createEx.css';
 import SideBar from './SideBar.js'
 import {db} from '../firebase'
@@ -34,15 +37,9 @@ export function useListExchanges(){
 }
 export default function CreateEx() {
     const { currentUser } = useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors },resetField} = useForm();
     const [Exchanges] = useListExchanges()
     const [Pairs, setPairs] = useState([])
-    const [Account, setAccount] = useState({
-            name:'',
-            author:currentUser.email,
-            apiName:'',
-            apiKey:'',
-            url:''
-    })
 
     useEffect(() => {
         listOfPair()
@@ -57,36 +54,51 @@ export default function CreateEx() {
         }) 
         
     }
-    console.log(Account)
-    const onSubmit= async (e)=>{
-        e.preventDefault()
-        Account.url=funExchange(Account.name)
-        const newExchange={
-            name:Account.name,
-            author:Account.author,
-            apiName:Account.apiName,
-            apiKey:Account.apiKey,
-            url:Account.url
-        }
-        await db.collection('exchange').doc().set(newExchange);
-        document.querySelectorAll('[name=name]').forEach((x) => x.checked = false);
-        setAccount({
-            name:'',
-            author:currentUser.email,
-            apiName:'',
-            apiKey:'',
-            url:''
-    })
-    }
 
-    const onInput=(e)=>{
-        setAccount({...Account,[e.target.name]: e.target.value})
+    const onSubmit= async (data)=>{
+        const newExchange={
+            name:data.name,
+            author:currentUser.email,
+            apiName:data.apiName,
+            apiKey:data.apiKey,
+            url: funExchange(data.name)
+        }
+        let confirm = false;
+        Swal.fire({
+            title: 'Do you want to confirm?',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            cancelButtonText: `Cancel`,
+            confirmButtonColor: 'green',
+          }).then( async (result) => 
+            {
+            if (result.isConfirmed) {
+                resetField('apiName');
+                resetField('apiKey');
+                document.querySelectorAll('[name=name]').forEach((x) => x.checked = false);
+                await db.collection('exchange').doc().set(newExchange);
+                Swal.fire({
+                    title:'Exchange Saved!',
+                    icon:'success',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    position:'top'
+                });
+            }
+            })    
+        
     }
 
     const deleteEx = async(id) =>{
         await db.collection('exchange').doc(id).delete();
         
     }
+
+    let InKey='';
+    let InName=''
+    if(errors.apiKey)InKey='inputLogErr'; else InKey='inputLog';
+    if(errors.apiName)InName='inputLogErr'; else InName='inputLog';
+
     return (
         <div className="container-fluid " >
                 <div className="row min-vh-100">                  
@@ -135,35 +147,57 @@ export default function CreateEx() {
                                         <div className="row justify-content-center">
                                             <div className="form-group mb-3">
                                                 <label className="form-label" id="lab">ApiName</label>
-                                                <input type="text" className="form-control in" placeholder="Paste your ApiName" name="apiName" value={Account.apiName} required onChange={onInput}>
-                                                </input>
+                                                <input type="text" className="form-control " id={InName} placeholder="Paste your ApiName" name="apiName" 
+                                                {...register('apiName',{
+                                                    required:{
+                                                      value:true,
+                                                      message:'Field is empty'
+                                                    }
+                                                  })} />
+                                                  {errors.apiName && <span className='text-danger'>{errors.apiName.message}</span>}
+                                                
                                             </div>
                                         </div>
                                         <div className="row justify-content-center">
                                             <div className="form-group">
                                                 <label className="form-label" id="lab">ApiKey</label>
-                                                <input type="password" className="form-control in" placeholder="Paste your ApiKey" value={Account.apiKey} name="apiKey" required onChange={onInput}>
-                                                </input>
+                                                <input type="password" className="form-control " id={InKey} placeholder="Paste your ApiKey" name="apiKey" 
+                                                {...register('apiKey',{
+                                                    required:{
+                                                      value:true,
+                                                      message:'Field is empty'
+                                                    }
+                                                  })} />
+                                                  {errors.apiKey && <span className='text-danger'>{errors.apiKey.message}</span>}
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-10 col-md-5 py-3 text-center" id="titleCard">
                                     <label id="lab">Choose the Exchange</label>
                                         <div className="row p-2 justify-content-center justify-content-md-around">
+                                        {errors.name && <span className='text-danger'>{errors.name.message}</span>}
                                             {Pairs.map(pair => 
                                                     <div id="imagChoose" key={pair.name}>
                                                         <label>
-                                                            <input type="radio" name="name" value={pair.name} className="card-input-e" onChange={onInput}/>
+                                                            <input type="radio" name="name" value={pair.name} className="card-input-e" 
+                                                            {...register('name',{
+                                                                required:{
+                                                                  value:true,
+                                                                  message:'Select a Excange'
+                                                                }
+                                                              })} />
+                                                              
                                                             <div className="card-i">
-                                                                <img src={pair.url} alt={pair.name} id="imag"/>
+                                                                <img src={pair.url} alt={pair.name} id="imag" />
                                                             </div>
                                                         </label>       
                                                     </div>
                                                 )}
+                                                
                                         </div>
                                     </div>
                                 </div>
-                                    <form onSubmit={onSubmit}>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="row justify-content-center ">
                                             <button type="submit" className="btn col-8 col-md-4" id="buttonSave"> Save exchange</button>
                                         </div>

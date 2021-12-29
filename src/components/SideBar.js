@@ -3,9 +3,26 @@ import {Link} from 'react-router-dom'
 import {app} from '../firebase.js'
 import '../styles/navigation.css'
 import { AuthContext } from "./Auth.js";
+import Swal from 'sweetalert2'
 
 export default function SideBar(){
     const { currentUser } = useContext(AuthContext);
+    function SingOut() {
+        Swal.fire({
+            title: 'Do you want to exit?',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            cancelButtonText: `Cancel`,
+            confirmButtonColor: 'green',
+          }).then( (result) => 
+            {
+            if (result.isConfirmed) {
+                app.auth().signOut()
+            }
+            }) 
+        
+    }
+
         return (
                     <aside className="col-12 col-md-2 flex-shrink-1" id="sideBar">
                         <nav className="navbar navbar-expand-md navbar-dark bd-dark flex-md-column 
@@ -32,7 +49,7 @@ export default function SideBar(){
                                         <Link className="nav-link" to="/createExchange"><i className="bi bi-person-circle"></i> Exchange</Link>
                                     </li>
                                     <li className="nav-item py-3">
-                                    <button className="btn" id='buttonOut' onClick={() => app.auth().signOut()}>Sign out</button>
+                                    <button className="btn" id='buttonOut' onClick={SingOut}>Sign out</button>
                                     </li>
                                 </ul>
 

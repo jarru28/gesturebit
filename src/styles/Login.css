@@ -30,3 +30,16 @@
     color: rgb(81, 153, 70);
     
 }
+#inputLog{
+    box-shadow: 0px 0px 5px 6px rgba(68, 68, 68, 0.103);
+}
+#inputLog:hover{
+    box-shadow: 0px 0px 5px 6px rgba(68, 68, 68, 0.301);
+}
+#inputLogErr{
+    box-shadow: 0px 0px 5px 6px rgba(68, 68, 68, 0.103);
+    border: 2px solid rgb(221, 63, 63);
+}
+#inputLogErr:hover{
+    box-shadow: 0px 0px 5px 6px rgba(68, 68, 68, 0.301);
+}
