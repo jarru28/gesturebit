@@ -5,6 +5,7 @@ import '../styles/listBots.css';
 import SideBar from './SideBar.js'
 import {db} from '../firebase'
 import { AuthContext } from "./Auth.js";
+import Swal from 'sweetalert2'
 
 export function useListBots(){
     const [Bots, setBots] = useState([])
@@ -27,13 +28,69 @@ export function useListBots(){
 }
 export default function ListBots(){
     const [Bots] = useListBots()
-    console.log(Bots)
 
     async function activateBot(id){
-        console.log(id)
+        Swal.fire({
+            title: 'Do you want to confirm?',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            cancelButtonText: `Cancel`,
+            confirmButtonColor: 'green',
+          }).then( async (result) => 
+            {
+            if (result.isConfirmed) {
+                await db.collection('bot').doc(id).update({actived: true});
+                Swal.fire({
+                    title:'Bot activated!',
+                    icon:'success',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    position:'top'
+                });
+            }
+            })  
+    }
+    async function desactivateBot(id){
+        Swal.fire({
+            title: 'Do you want to confirm?',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            cancelButtonText: `Cancel`,
+            confirmButtonColor: 'green',
+          }).then( async (result) => 
+            {
+            if (result.isConfirmed) {
+                await db.collection('bot').doc(id).update({actived: false});
+                Swal.fire({
+                    title:'Bot desactivated!',
+                    icon:'success',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    position:'top'
+                });
+            }
+            })  
     }
     async function deleteBot(id){
-        await db.collection('bot').doc(id).delete();
+        Swal.fire({
+            title: 'Do you want to confirm?',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            cancelButtonText: `Cancel`,
+            confirmButtonColor: 'green',
+          }).then( async (result) => 
+            {
+            if (result.isConfirmed) {
+                await db.collection('bot').doc(id).delete();
+                Swal.fire({
+                    title:'Bot deleted!',
+                    icon:'success',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    position:'top'
+                });
+            }
+            })  
     }
 
     return (
@@ -66,7 +123,7 @@ export default function ListBots(){
                                 <div className="row" id="nameBot">
                                     {bot.name}
                                 </div>
-                            <div className="row " id="caja_bot">
+                            <div className="row " id='caja_bot'>
                                 <div className="col-11 col-md-5 col-xl-2">
                                     <img src={bot.url} alt="binance" id="imag"/>    
                                 </div>
@@ -82,9 +139,23 @@ export default function ListBots(){
                                 <div className="col-11 col-md-5 col-xl-2">
                                     {format(bot.date)}   
                                 </div>
-                                <button className="btn col-11 col-md-5 col-xl-2" id="botonEliminar" onClick={()=>deleteBot(bot.Id)}>
-                                    Delete
-                                </button>
+                                { !bot.actived ?
+                                <div className='col-11 col-md-5 col-xl-2'>
+                                    <button className="btn " id="botonOn" onClick={()=>activateBot(bot.Id)}>
+                                    <i class="bi bi-toggle-off text-white fs-4"></i>
+                                    </button>
+                                    <button className="btn " id="" onClick={()=>deleteBot(bot.Id)}>
+                                    <i class="bi bi-x-square text-danger fs-4"></i>
+                                    </button>
+                                </div>
+                                :
+                                <div className='col-11 col-md-5 col-xl-2'>
+                                    <button className="btn " id="botonOn" onClick={()=>desactivateBot(bot.Id)}>
+                                    <i class="bi bi-toggle-on text-white fs-4"></i>
+                                    </button>
+                                </div>
+                                }
+                                
                             </div>
                         </div>
                         ) }
