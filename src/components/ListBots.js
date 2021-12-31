@@ -141,7 +141,7 @@ export default function ListBots(){
                                 </div>
                                 { !bot.actived ?
                                 <div className='col-11 col-md-5 col-xl-2'>
-                                    <button className="btn " id="botonOn" onClick={()=>activateBot(bot.Id)}>
+                                    <button className="btn " id="" onClick={()=>activateBot(bot.Id)}>
                                     <i class="bi bi-toggle-off text-white fs-4"></i>
                                     </button>
                                     <button className="btn " id="" onClick={()=>deleteBot(bot.Id)}>
@@ -150,7 +150,7 @@ export default function ListBots(){
                                 </div>
                                 :
                                 <div className='col-11 col-md-5 col-xl-2'>
-                                    <button className="btn " id="botonOn" onClick={()=>desactivateBot(bot.Id)}>
+                                    <button className="btn " id="" onClick={()=>desactivateBot(bot.Id)}>
                                     <i class="bi bi-toggle-on text-white fs-4"></i>
                                     </button>
                                 </div>

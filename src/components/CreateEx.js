@@ -90,7 +90,25 @@ export default function CreateEx() {
     }
 
     const deleteEx = async(id) =>{
-        await db.collection('exchange').doc(id).delete();
+        Swal.fire({
+            title: 'Do you want to confirm?',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            cancelButtonText: `Cancel`,
+            confirmButtonColor: 'green',
+          }).then( async (result) => 
+            {
+            if (result.isConfirmed) {
+                await db.collection('exchange').doc(id).delete();
+                Swal.fire({
+                    title:'Exchange deleted!',
+                    icon:'success',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    position:'top'
+                });
+            }
+            })  
         
     }
 
@@ -123,10 +141,14 @@ export default function CreateEx() {
                                         :
                                         Exchanges.map(ex => 
                                             <div id="rowEx" className="row p-3 m-3" key={ex.Id}>
-                                                <div >
-                                                    <img src={ex.url} alt="binance" id="imagYour"/> 
-                                                    <button className="btn" id="botonEliminar" onClick={()=>deleteEx(ex.Id)}>
-                                                        Delete
+                                                <div className='d-flex'>
+                                                    <img src={ex.url} alt="binance" id="imagYour"/>
+                                                    <div>
+                                                        <div className='text-success mx-3'>{ex.apiName.substring(0,8)}...</div>
+                                                        <div className='text-success mx-3'>{ex.apiKey.substring(0,8)}...</div>
+                                                    </div>
+                                                    <button className="btn" id="" onClick={()=>deleteEx(ex.Id)}>
+                                                    <i class="bi bi-x-square text-danger fs-4"></i>
                                                     </button>
                                                 </div>
                                             </div>
