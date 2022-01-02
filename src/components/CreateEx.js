@@ -63,7 +63,6 @@ export default function CreateEx() {
             apiKey:data.apiKey,
             url: funExchange(data.name)
         }
-        let confirm = false;
         Swal.fire({
             title: 'Do you want to confirm?',
             showCancelButton: true,
@@ -117,6 +116,15 @@ export default function CreateEx() {
     if(errors.apiKey)InKey='inputLogErr'; else InKey='inputLog';
     if(errors.apiName)InName='inputLogErr'; else InName='inputLog';
 
+    const ExRepeat=(v)=>{
+        let res=true
+        Exchanges.map(e => {
+            
+            if(e.name==v) {res='You can not create more than 1 of the same exchange'}
+        })
+        return res
+    }
+
     return (
         <div className="container-fluid " >
                 <div className="row min-vh-100">                  
@@ -140,15 +148,15 @@ export default function CreateEx() {
                                         </div> 
                                         :
                                         Exchanges.map(ex => 
-                                            <div id="rowEx" className="row p-3 m-3" key={ex.Id}>
+                                            <div id="rowEx" className="row p-3 m-md-3" key={ex.Id}>
                                                 <div className='d-flex'>
                                                     <img src={ex.url} alt="binance" id="imagYour"/>
                                                     <div>
-                                                        <div className='text-success mx-3'>{ex.apiName.substring(0,8)}...</div>
-                                                        <div className='text-success mx-3'>{ex.apiKey.substring(0,8)}...</div>
+                                                        <div className='text-success mx-md-3'>{ex.apiName.substring(0,8)}...</div>
+                                                        <div className='text-success mx-md-3'>{ex.apiKey.substring(0,8)}...</div>
                                                     </div>
                                                     <button className="btn" id="" onClick={()=>deleteEx(ex.Id)}>
-                                                    <i class="bi bi-x-square text-danger fs-4"></i>
+                                                    <i className="bi bi-x-square text-danger fs-4"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -171,6 +179,7 @@ export default function CreateEx() {
                                                 <label className="form-label" id="lab">ApiName</label>
                                                 <input type="text" className="form-control " id={InName} placeholder="Paste your ApiName" name="apiName" 
                                                 {...register('apiName',{
+                                                    onChange: (e) => console.log(e.value),
                                                     required:{
                                                       value:true,
                                                       message:'Field is empty'
@@ -206,7 +215,8 @@ export default function CreateEx() {
                                                                 required:{
                                                                   value:true,
                                                                   message:'Select a Excange'
-                                                                }
+                                                                },
+                                                                validate:ExRepeat,
                                                               })} />
                                                               
                                                             <div className="card-i">

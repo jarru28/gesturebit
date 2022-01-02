@@ -1,5 +1,6 @@
 import React, { useEffect, useState,useContext} from 'react'
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
+import Swal from 'sweetalert2'
 
 import logo1 from '../images/rsi.png'
 import '../styles/createBot.css';
@@ -19,72 +20,51 @@ export default function CreateBot() {
     const [Bots] = useListBots()
     
     const { currentUser } = useContext(AuthContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { setValue,register, handleSubmit, formState: { errors } } = useForm();
     
-    const [Bot, setBot] = useState({
-            name:'',
-            author:currentUser.email,
-            strategy:'',
-            money:'',
-            exchanche:'',
-            actived:false,
-            pair:'',
-            url:''
-    })
-    
-    useEffect(() => {
-        getData()
-    }, [Bot])
-
-    async function getData() {
-        if(Bot.exchanche === '' ){
-            setPairs(['Choose a exchange']);
+     const getData= async (v) => {
+         console.log(v)
+        if(v == ''){
+            setPairs(['']);
         }else{
-            db.collection('pair').where('name', '==', Bot.exchanche).onSnapshot((query) => {
+            setValue('pair','')
+            db.collection('pair').where('name', '==', v).onSnapshot((query) => {
                 const list = [];
                 query.forEach(document => {
                     list.push({...document.data(), Id:document.id})
                 })
-                const l = ['Pair'];l.push(...list[0].pair);
-                setPairs(l);
+                
+                setPairs(list[0].pair);
+                
                 }) 
         }
     }   
     
     function BotRepeat(name){
-        var res = false
+        var res = true
         Bots.map(bot => {
-            if(bot.name===name) res=!res;
+            if(bot.name===name) res='The name of the bot is alredy in use';
         })
         return res;
     }
-    const onInput=(e)=>{
-        setBot({...Bot,[e.target.name]: e.target.value})
-        console.log(Pairs[0])
-        
-    }
     
-    const onSubmit= async (e)=>{
-        e.preventDefault()
-        Bot.url=funExchange(Bot.exchanche)
+    const onSubmit= async (data)=>{
+        console.log('hi')
+        const url=funExchange(data.exchanche)
         const newBot={
-            name:Bot.name,
-            author:Bot.author,
-            strategy:Bot.strategy,
-            money:Bot.money,
-            exchanche:Bot.exchanche,
-            actived:Bot.actived,
-            pair:Bot.pair,
-            url:Bot.url
+            name:data.name,
+            author:currentUser.email,
+            strategy:data.strategy,
+            money:data.money,
+            exchanche:data.exchanche,
+            actived:false,
+            pair:data.pair,
+            url:url
         }
         console.log(newBot)
-        if(!BotRepeat(newBot.name)){
             await db.collection('bot').doc().set(newBot);
             window.location.href = "/bots";
-        }  
-        else{
-            window.alert('Bot Name repeated')
-        } 
+        
     }
 
     return(
@@ -99,8 +79,16 @@ export default function CreateBot() {
                             <div className="col-11 col-md-5 col-xl-6" id="column">
                                 <div className="" >
                                         <label className="form-label" id="titleLabel">Bot Name</label>
-                                        <input type="text" className="form-control" name="name" required onChange={onInput} id="input">
+                                        <input type="text" className="form-control" name="name" id="input"
+                                         {...register('name',{
+                                            required:{
+                                              value:true,
+                                              message:'Field is empty'
+                                            },
+                                            validate:BotRepeat,
+                                          })}>
                                         </input>
+                                        {errors.name && <span className='text-center text-danger'>{errors.name.message}</span>}
                                 </div>
                                 <div className="row justify-content-center" >
                                 <div className="text-center">
@@ -108,6 +96,7 @@ export default function CreateBot() {
                                 </div>
                                 </div>
                                     <p className="row justify-content-center m-0">
+                                    {errors.exchanche && <span className='text-center text-danger'>{errors.exchanche.message}</span>}
                                     </p>
                                 <div className="row justify-content-around pt-2 py-4">
                                         {
@@ -119,7 +108,15 @@ export default function CreateBot() {
                                         Exchange.map(exchanche => 
                                                     <div id="imagChoose" key={exchanche.Id}>
                                                         <label >
-                                                            <input type="radio" name="exchanche" value={exchanche.name} className="card-input-e" onChange={onInput}/>
+                                                            <input type="radio" name="exchanche" value={exchanche.name} className="card-input-e"
+                                                             {...register('exchanche',{
+                                                                
+                                                                required:{
+                                                                  value:true,
+                                                                  message:'Field is empty'
+                                                                },
+                                                                onChange: (e) => getData(e.target.value)
+                                                              })}/>
                                                             <div className="card-i">
                                                                 <img src={exchanche.url} alt={exchanche.name} id="imag"/>
                                                             </div>
@@ -130,20 +127,34 @@ export default function CreateBot() {
                                 <div className="row" id="form">
                                     <div className="col-12 col-md-6">
                                     <label className="form-label" id="titleLabel">Pair</label>
-                                    <select className="form-control" name="pair" onChange={onInput} id="input">
+                                    <select className="form-control" name="pair" id="input"
+                                     {...register('pair',{
+                                        required:{
+                                          value:true,
+                                          message:'Field is empty'
+                                        }
+                                      })}>
                                         {Pairs.map( p => 
                                             <option key={p} value={p}>
                                                 {p}
                                             </option>)
                                         }
                                     </select>
+                                    {errors.pair && <span className='text-center text-danger'>{errors.pair.message}</span>}
                                     </div>
                                     <div className="col-12 col-md-6">
                                         <label className="form-label" id="titleLabel">Quantity</label>
                                         <div className="d-flex">
-                                            <input type="number" className="form-control" name="money" aria-describedby="basic-addon2" required onChange={onInput} id="input"></input>
-                                            <span className="input-group-text" id="basic-addon2">$</span>
+                                            <input type="number" className="form-control" name="money" aria-describedby="money" id="input"
+                                             {...register('money',{
+                                                required:{
+                                                  value:true,
+                                                  message:'Field is empty'
+                                                }
+                                              })}></input>
+                                            <span className="input-group-text" id="money">$</span>
                                         </div>
+                                        {errors.money && <span className='text-center text-danger'>{errors.money.message}</span>}
                                         <p className="text-center m-1 text-white">
                                             Make sure you have this quantity on your wallet
                                         </p>
@@ -156,10 +167,17 @@ export default function CreateBot() {
                                     </p>
                                 </div>
                                 <div className="row justify-content-around ">
+                                {errors.strategy && <span className='text-center text-danger'>{errors.strategy.message}</span>}
                                     {Strategies.map(s => 
                                         <div className="col-10 col-md-5 p-0 text-center"  key={s.Id}>
                                             <label id="strategyInput">
-                                            <input type="radio" name="strategy" value={s.name} className="card-input-element" onChange={onInput}/>
+                                            <input type="radio" name="strategy" value={s.name} className="card-input-element" 
+                                             {...register('strategy',{
+                                                required:{
+                                                  value:true,
+                                                  message:'Choose a strategy'
+                                                }
+                                              })}/>
                                                 <div className="card-input">
                                                     <div className="text-center" id="titleInput">
                                                     <div className="">{s.name}</div>
@@ -177,7 +195,7 @@ export default function CreateBot() {
                             </div>
                             <div className="row justify-content-center py-2 ">
                                 <div className=" text-center">
-                                    <form onSubmit={onSubmit}>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
                                             <button type="submit" className="btn px-5" id="buttonCreate"> Create Bot</button>
                                     </form>
                                 </div>
