@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
-import{app} from "../firebase.js";
+import{app,db} from "../firebase.js";
 
 export const AuthContext = React.createContext();
-
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [pending, setPending] = useState(true);
-
+  const [User, setUser] = useState([]);
+  
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
       setCurrentUser(user)
-      setPending(false)
+      
+        if(user){
+        db.collection('user').where('email','==',user.email).onSnapshot((query) => {
+          const list = [];
+          query.forEach(document => {
+              list.push({...document.data(), Id:document.id})
+          })
+          setUser(list[0])
+      })
+    }
     });
+    setPending(false)
   }, []);
 
   if(pending){
@@ -21,7 +31,8 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        currentUser
+        currentUser,
+        User
       }}
     >
       {children}

@@ -142,10 +142,10 @@ export default function ListBots(){
                                 { !bot.actived ?
                                 <div className='col-11 col-md-5 col-xl-2'>
                                     <button className="btn " id="" onClick={()=>activateBot(bot.Id)}>
-                                    <i class="bi bi-toggle-off text-white fs-4"></i>
+                                    <i className="bi bi-toggle-off text-white fs-4"></i>
                                     </button>
                                     <button className="btn " id="" onClick={()=>deleteBot(bot.Id)}>
-                                    <i class="bi bi-x-square text-danger fs-4"></i>
+                                    <i className="bi bi-x-square text-danger fs-4"></i>
                                     </button>
                                 </div>
                                 :

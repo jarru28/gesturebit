@@ -6,7 +6,7 @@ import { AuthContext } from "./Auth.js";
 import Swal from 'sweetalert2'
 
 export default function SideBar(){
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser,User } = useContext(AuthContext);
     function SingOut() {
         Swal.fire({
             title: 'Do you want to exit?',
@@ -29,7 +29,7 @@ export default function SideBar(){
                         flex-row align-items-center py-2 text-center sticky-top">
                             <div className="text-center p-3">
                                 
-                                <div className="navbar-brand mx-0 text-nowrap">{currentUser.email}</div>
+                                <div className="navbar-brand mx-0 text-nowrap">{User.name}</div>
                             </div>  
                             <button className="navbar-toggler border-0 order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon"></span>
