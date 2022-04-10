@@ -18,8 +18,7 @@ h1{
     margin-top: 50px;
 }
 #imagePc{
-    max-width: 80%;
-    max-height: 80%;
+   
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.658));
 }
 

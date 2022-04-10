@@ -13,21 +13,21 @@ export default class Home extends Component {
                 
                 <div className="row justify-content-center" id="firstContainer">
 
-                    <div className="row "> 
-                        <div className="col-12 text-center">
+                    <div className="col-10 col-md-4 my-5 ml-4"> 
+                        <div className="row justify-content-center text-end">
                             <h1 className="mb-3">Bring your cryptocurrencies to life.</h1>
                         </div>
-                    </div>
-                    <div className="row justify-content-center">
-                        <div className="col-10 col-xl-4 col-md-6 text-center">
+                        <div className="row justify-content-center text-end">
                             <h5 className="mb-3" id="subtitle">Stop using complicated trading tools. Try our new crypto bots and let them automatically trade for you.</h5>
                         </div>
+                        <div className="row justify-content-end text-end">
+                        <Link className="col-6 col-md-5 btn btn-primary mb-5" id="buttonStart" to="/bots" role="button">Get started!</Link>
+                        </div>
                     </div>
+                    <div className="col-12 col-md-7 mb-5">
                     <div className="row justify-content-center">
-                        <Link className="col-6 col-md-2 btn btn-primary mb-5" id="buttonStart" to="/bots" role="button">Get started!</Link>
-                    </div>
-                    <div className="row justify-content-center">
-                        <img src={logo}  alt="logo" id="imagePc" /> 
+                        <img src={logo} alt="logo" id="imagePc" /> 
+                        </div>
                     </div>
                 </div> 
                 
