@@ -3,7 +3,7 @@
     background-color: rgb(236, 255, 230);
 }
 #tit{
-    margin-top: 3%;
+    margin-top: 1%;
     font-size:x-large;
     border-bottom: 3px solid rgb(65, 180, 49);
     color: rgb(65, 180, 49);
@@ -13,7 +13,8 @@
     background-color: rgb(114, 212, 100);
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.137);
     padding: 20px 0px 20px 0px;
-    margin-top: 20px;
+    margin-top: 15px;
+    margin-left: 30px;
     text-decoration: none;
     color: rgb(242, 255, 240);
     font-size: 18px;

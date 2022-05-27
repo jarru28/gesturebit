@@ -138,6 +138,7 @@ export default function CreateEx() {
                                 <div className="card " id="cardEx">
                                     <div className="" id="titleCard">
                                         Your Exchanges
+                                        
                                     </div>
                                     
                                     <div className="" id="titleCard">
@@ -153,7 +154,6 @@ export default function CreateEx() {
                                                     <img src={ex.url} alt="binance" id="imagYour"/>
                                                     <div>
                                                         <div className='text-success mx-md-3'>{ex.apiName.substring(0,8)}...</div>
-                                                        <div className='text-success mx-md-3'>{ex.apiKey.substring(0,8)}...</div>
                                                     </div>
                                                     <button className="btn" id="" onClick={()=>deleteEx(ex.Id)}>
                                                     <i className="bi bi-x-square text-danger fs-4"></i>
@@ -173,6 +173,31 @@ export default function CreateEx() {
                                 <p className="text-center" id="subTitle">Go to your exchange account and create a new API, then copy the keys and paste here to connect tour exchange to the bot.
                                         </p>
                                 <div className="row justify-content-around">
+                                <div className="col-10 col-md-5 py-3 text-center" id="titleCard">
+                                    <label id="lab">Choose the Exchange</label>
+                                        <div className="row p-2 justify-content-center justify-content-md-around">
+                                        {errors.name && <span className='text-danger'>{errors.name.message}</span>}
+                                            {Pairs.map(pair => 
+                                                    <div id="imagChoose" key={pair.name}>
+                                                        <label>
+                                                            <input type="radio" name="name" value={pair.name} className="card-input-e" 
+                                                            {...register('name',{
+                                                                required:{
+                                                                  value:true,
+                                                                  message:'Select a Excange'
+                                                                },
+                                                                validate:ExRepeat,
+                                                              })} />
+                                                              
+                                                            <div className="card-i">
+                                                                <img src={pair.url} alt={pair.name} id="imag" />
+                                                            </div>
+                                                        </label>       
+                                                    </div>
+                                                )}
+                                                
+                                        </div>
+                                    </div>
                                     <div className="col-10 col-md-6 py-3" id="titleCard">
                                         <div className="row justify-content-center">
                                             <div className="form-group mb-3">
@@ -203,31 +228,7 @@ export default function CreateEx() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-10 col-md-5 py-3 text-center" id="titleCard">
-                                    <label id="lab">Choose the Exchange</label>
-                                        <div className="row p-2 justify-content-center justify-content-md-around">
-                                        {errors.name && <span className='text-danger'>{errors.name.message}</span>}
-                                            {Pairs.map(pair => 
-                                                    <div id="imagChoose" key={pair.name}>
-                                                        <label>
-                                                            <input type="radio" name="name" value={pair.name} className="card-input-e" 
-                                                            {...register('name',{
-                                                                required:{
-                                                                  value:true,
-                                                                  message:'Select a Excange'
-                                                                },
-                                                                validate:ExRepeat,
-                                                              })} />
-                                                              
-                                                            <div className="card-i">
-                                                                <img src={pair.url} alt={pair.name} id="imag" />
-                                                            </div>
-                                                        </label>       
-                                                    </div>
-                                                )}
-                                                
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="row justify-content-center ">

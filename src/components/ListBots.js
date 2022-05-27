@@ -98,14 +98,9 @@ export default function ListBots(){
             <div className="row min-vh-100">
                     <SideBar/>
                 <div className="col-12 col-lg-10" id="body">
-                    <div className="row justify-content-center justify-content-md-start ml-md-5">
-                        <div id="tit">HOME</div>
-                    </div>
-                    <div className="row justify-content-around pt-3">
-                        
-                        <Link className="col-10 col-md-4 col-lg-3 text-center" to="/createBot" id="link">Create New Bot
-                        </Link>
-                        <Link className="col-10 col-md-4 col-xl-3 text-center" to="/createBot" id="link">Create New Exchange
+                    
+                    <div className="row pt-3">
+                        <Link className="col-10 col-md-4 col-xl-3 ml-2 text-center" to="/createExchange" id="link">Connect your Exchange
                         </Link>
                     </div>
                     <div className="row justify-content-center justify-content-md-start ml-md-5 ">
