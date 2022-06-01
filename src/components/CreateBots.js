@@ -1,8 +1,9 @@
-import React, { useEffect, useState,useContext} from 'react'
-import { set, useForm } from "react-hook-form";
+import React, { useState,useContext} from 'react'
+import { useForm } from "react-hook-form";
+import {Link} from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-import logo1 from '../images/rsi.png'
+import logo1 from '../images/bollinger_bands.png'
 import '../styles/createBot.css';
 
 import SideBar from './SideBar.js'
@@ -50,6 +51,7 @@ export default function CreateBot() {
     
     const onSubmit= async (data)=>{
         console.log('hi')
+        
         const url=funExchange(data.exchanche)
         const newBot={
             name:data.name,
@@ -62,8 +64,12 @@ export default function CreateBot() {
             url:url
         }
         console.log(newBot)
+        try{
             await db.collection('bot').doc().set(newBot);
             window.location.href = "/bots";
+        }catch{
+            alert('You dont have any exchange. Connect one first.')
+        }
         
     }
 
@@ -99,13 +105,13 @@ export default function CreateBot() {
                                     {errors.exchanche && <span className='text-center text-danger'>{errors.exchanche.message}</span>}
                                     </p>
                                 <div className="row justify-content-around pt-2 py-4">
-                                        {
+                                {
                                         [Exchange]=='' ? 
                                         <div className=" p-2 text-center fs-5 text-white">
-                                            <i className="bi bi-wrench mx-1"></i> You don't have any Exchange.
+                                            <i className="bi bi-wrench mx-1"></i> You don't have any Exchange. <Link to="/createExchange">Connect your Exchange.</Link>
                                         </div> 
-                                        :
-                                        Exchange.map(exchanche => 
+                                        :<></>}
+                                        {Exchange.map(exchanche => 
                                                     <div id="imagChoose" key={exchanche.Id}>
                                                         <label >
                                                             <input type="radio" name="exchanche" value={exchanche.name} className="card-input-e"
@@ -113,7 +119,7 @@ export default function CreateBot() {
                                                                 
                                                                 required:{
                                                                   value:true,
-                                                                  message:'Field is empty'
+                                                                  message:'Select a exchange'
                                                                 },
                                                                 onChange: (e) => getData(e.target.value)
                                                               })}/>

@@ -1,5 +1,6 @@
 import React, { useEffect,useState,useContext} from 'react'
 import { useForm } from "react-hook-form";
+import {Link} from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 import '../styles/createEx.css';
@@ -163,6 +164,12 @@ export default function CreateEx() {
                                         )}
                                     </div>
                                 </div>
+                                <div className="my-5">
+                                { [Exchanges]=='' ? <></>:
+                        <Link className=" p-4 text-center" to="/createBot" id="link"> Create a new bot.
+                        </Link>}
+
+                    </div>
                             </div>
                             <div className="col-11 col-md-7 col-xl-7">
                                 
