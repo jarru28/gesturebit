@@ -121,7 +121,7 @@ export default function CreateEx() {
         let res=true
         Exchanges.map(e => {
             
-            if(e.name==v) {res='You can not create more than 1 of the same exchange'}
+            if(e.name==v) {res='You can not create more than one API of the same exchange'}
         })
         return res
     }
@@ -177,7 +177,7 @@ export default function CreateEx() {
                                 <div className="" id="titleCard">
                                     New Exchange
                                 </div>
-                                <p className="text-center" id="subTitle">Go to your exchange account and create a new API, then copy the keys and paste here to connect tour exchange to the bot.
+                                <p className="text-center" id="subTitle">Go to your exchange account and create a new API, then copy the keys and paste here to connect your exchange to the bot.
                                         </p>
                                 <div className="row justify-content-around">
                                 <div className="col-10 col-md-5 py-3 text-center" id="titleCard">

@@ -122,7 +122,7 @@ export default function ListBots(){
                                 <div className="col-11 col-md-5 col-xl-2">
                                     <img src={bot.url} alt="binance" id="imag"/>    
                                 </div>
-                                <div className="col-11 col-md-5 col-xl-2">
+                                <div className="col-11 col-md-5 col-xl-3">
                                     {bot.strategy}   
                                 </div>
                                 <div className="col-11 col-md-5 col-xl-2">
@@ -131,9 +131,7 @@ export default function ListBots(){
                                 <div className="col-11 col-md-5 col-xl-2">
                                     {bot.pair}   
                                 </div>
-                                <div className="col-11 col-md-5 col-xl-2">
-                                    {format(bot.date)}   
-                                </div>
+                                
                                 { !bot.actived ?
                                 <div className='col-11 col-md-5 col-xl-2'>
                                     <button className="btn " id="" onClick={()=>activateBot(bot.Id)}>

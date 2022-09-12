@@ -10,8 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     app.auth().onAuthStateChanged((user) => {
       setCurrentUser(user)
-      
-        if(user){
+    if(user){
         db.collection('user').where('email','==',user.email).onSnapshot((query) => {
           const list = [];
           query.forEach(document => {
